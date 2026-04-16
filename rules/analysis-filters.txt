@@ -1,0 +1,71 @@
+# Wireshark Analysis Filters
+
+## Baseline Analysis
+Use these filters to get a quick overview of common traffic.
+
+```wireshark
+dns or icmp or tcp
+```
+
+## DNS Review
+Shows domain lookups and responses.
+
+```wireshark
+dns
+```
+
+## TCP Handshake Review
+Shows new TCP sessions.
+
+```wireshark
+tcp.flags.syn == 1 && tcp.flags.ack == 0
+```
+
+## Retransmission Check
+Highlights possible packet loss or unstable links.
+
+```wireshark
+tcp.analysis.retransmission
+```
+
+## Duplicate ACK Check
+Useful for spotting network delays or recovery behavior.
+
+```wireshark
+tcp.analysis.duplicate_ack
+```
+
+## Web Traffic Review
+Shows HTTP requests and encrypted TLS sessions.
+
+```wireshark
+http.request or tls
+```
+
+## HTTPS Review
+Focuses on secure web traffic.
+
+```wireshark
+tcp.port == 443
+```
+
+## Host-Focused Review
+Replace the IP with your laptop or test VM address.
+
+```wireshark
+ip.addr == 192.168.1.10
+```
+
+## Large Packet Review
+Helps identify bigger packets such as transfers or heavy sessions.
+
+```wireshark
+frame.len > 1000
+```
+
+## Suggested Report Use
+- Use `dns` to explain domain resolution.
+- Use `tcp.flags.syn == 1 && tcp.flags.ack == 0` to show session starts.
+- Use `tcp.analysis.retransmission` to discuss packet loss or instability.
+- Use `tls` to show encrypted session establishment.
+- Use `ip.addr == 192.168.1.10` to focus on one device.
